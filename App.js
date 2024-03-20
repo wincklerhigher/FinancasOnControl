@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './android/app/src/styles/FinancasStyle';
-import RelatorioGastos from './android/app/screens/RelatorioGastos';
+import RelatorioContas from './android/app/screens/RelatorioContas';
 import Orçamentos from './android/app/screens/Orçamentos';
 import Metas from './android/app/screens/Metas';
 
@@ -17,7 +17,7 @@ const App = () => {
     return (
       <View style={styles.container}>
         <Text style={styles.dashboardTitle}>Dashboard</Text>
-        <TouchableOpacity style={styles.dashboardButton} onPress={() => navigation.navigate('RelatorioGastos')}>
+        <TouchableOpacity style={styles.dashboardButton} onPress={() => navigation.navigate('RelatorioContas')}>
           <Text style={styles.dashboardButtonText}>Relatório de Gastos</Text>
         </TouchableOpacity> 
         <TouchableOpacity style={styles.dashboardButton} onPress={() => navigation.navigate('Orçamentos')}>
@@ -35,7 +35,7 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="RelatorioGastos" component={RelatorioGastos} />
+          <Stack.Screen name="RelatorioContas" component={RelatorioContas} />
           <Stack.Screen name="Orçamentos" component={Orçamentos} />
           <Stack.Screen name="Metas" component={Metas} />
         </Stack.Navigator>

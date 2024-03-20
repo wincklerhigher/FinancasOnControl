@@ -3,16 +3,18 @@ import { View, Text, FlatList, TextInput, Button, TouchableOpacity } from 'react
 import styles from '../src/styles/FinancasStyle';
 import { useTransactionContext } from '../src/TransacaoComponent';
 
-const RelatorioGastos = () => {
+const RelatorioContas = () => {
   const { transactions, setTransactions } = useTransactionContext();
   const [descricao, setDescricao] = useState('');
-  const [valor, setValor] = useState('');  
+  const [valor, setValor] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleAdicionarGasto = () => {
+    let categoriaTransacao = parseFloat(valor) < 0 ? 'Despesa' : 'Receita';
+
     if (descricao && valor) {
-      const newTransaction = { id: Date.now(), description: descricao, amount: parseFloat(valor) };
+      const newTransaction = { id: Date.now(), description: descricao, amount: valor, category: categoriaTransacao };
       setTransactions(prevTransactions => [...prevTransactions, newTransaction]);
       setDescricao('');
       setValor('');
@@ -35,7 +37,8 @@ const RelatorioGastos = () => {
   const handleSaveEdit = () => {
     const updatedTransactions = transactions.map(transaction => {
       if (transaction.id === editingId) {
-        return { ...transaction, description: descricao, amount: parseFloat(valor) };
+        let categoriaTransacao = parseFloat(valor) < 0 ? 'Despesa' : 'Receita';
+        return { ...transaction, description: descricao, amount: valor, category: categoriaTransacao };
       }
       return transaction;
     });
@@ -43,28 +46,28 @@ const RelatorioGastos = () => {
     setDescricao('');
     setValor('');
     setEditingId(null);
-    setIsEditing(false); 
-  };  
+    setIsEditing(false);
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.dashboardTitle}>Relatório de Gastos</Text>
+      <Text style={styles.dashboardTitle}>Relatório de Contas</Text>
       <View style={styles.transactionContainer}>
         <TextInput
           style={[styles.dashboardButton, { flex: 1, marginRight: 10 }]}
           placeholder="Descrição"
           value={descricao}
-          onChangeText={setDescricao}          
+          onChangeText={setDescricao}
         />
         <TextInput
           style={[styles.dashboardButton, { flex: 1 }]}
           placeholder="Valor"
           value={valor}
           onChangeText={setValor}
-          keyboardType="numeric"          
+          keyboardType="numeric"
         />
         {!isEditing ? (
-          <Button title="Adicionar Gasto" onPress={handleAdicionarGasto} />
+          <Button title="Adicionar" onPress={handleAdicionarGasto} />
         ) : (
           <Button title="Salvar Edição" onPress={handleSaveEdit} />
         )}
@@ -76,6 +79,7 @@ const RelatorioGastos = () => {
             <View style={styles.transactionInfo}>
               <Text style={styles.descriptionText}>Descrição: {item.description}</Text>
               <Text style={styles.amountText}>Valor: {item.amount}</Text>
+              <Text style={styles.categoryText}>Categoria: {item.category}</Text>
             </View>
             <TouchableOpacity onPress={() => handleExcluirGasto(item.id)}>
               <Text style={styles.deleteButton}>Excluir</Text>
@@ -91,4 +95,4 @@ const RelatorioGastos = () => {
   );
 };
 
-export default RelatorioGastos;
+export default RelatorioContas;
