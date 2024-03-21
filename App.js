@@ -18,7 +18,7 @@ const App = () => {
       <View style={styles.container}>
         <Text style={styles.dashboardTitle}>Dashboard</Text>
         <TouchableOpacity style={styles.dashboardButton} onPress={() => navigation.navigate('RelatorioContas')}>
-          <Text style={styles.dashboardButtonText}>Relatório de Gastos</Text>
+          <Text style={styles.dashboardButtonText}>Relatório de Contas</Text>
         </TouchableOpacity> 
         <TouchableOpacity style={styles.dashboardButton} onPress={() => navigation.navigate('Orçamentos')}>
           <Text style={styles.dashboardButtonText}>Orçamentos</Text>
